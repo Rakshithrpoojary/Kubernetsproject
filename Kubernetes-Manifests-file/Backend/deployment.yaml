@@ -39,4 +39,4 @@ spec:
                   name: mongo-sec
                   key: password
           ports:
-            - containerPort: 3000
+            - containerPort: 3500
