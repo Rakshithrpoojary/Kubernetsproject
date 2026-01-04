@@ -38,6 +38,5 @@ spec:
                 secretKeyRef:
                   name: mongo-sec
                   key: password
-             ports:
-                - containerPort: 3500
-            
+          ports:
+            - containerPort: 3000
