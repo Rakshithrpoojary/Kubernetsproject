@@ -7,7 +7,8 @@ spec:
   ports:
     - port: 80
       targetPort: 3500
+      nodePort: 35000
       protocol: TCP
-  type: LoadBalancer
+  type: NodePort
   selector:
     role: api
