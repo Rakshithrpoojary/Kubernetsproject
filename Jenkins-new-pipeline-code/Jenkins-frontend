@@ -6,7 +6,7 @@ pipeline{
 
     environment{
         SCANNER_HOME=tool 'sonar-scanner'
-        IMAGE_NAME = "rakshithrpoojary/backend"
+        IMAGE_NAME = "rakshithrpoojary/frontend"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
     stages{
@@ -71,15 +71,26 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
 }
             }
         }
-        stage('Deploy to k8s')
-        {
-            steps{
-                sh """
-                kubectl set image deployment/frontend \
-                frontend=$IMAGE_NAME:$IMAGE_TAG \
-                -n todo
-                """
-            }
-        }
+        stage('Update Deployment YAML') {
+      steps {
+        sh """
+          sed -i 's|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|g' Kubernetes-Manifests-file/frontend/deployment.yaml
+        """
+      }
+    }
+
+    stage('Commit & Push to Git') {
+      steps {
+        sh """
+          git config user.name "Rakshith"
+          git config user.email "poojaryrakshith986@gmail.com"
+
+          git add Kubernetes-Manifests-file/frontend/deployment.yaml
+          git commit -m "Update frontend image to $IMAGE_TAG"
+          git push origin main
+        """
+      }
+    }
+
     }
 }

@@ -64,16 +64,27 @@ sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
                 }
             }
         }
-            stage('Deploy to k8s')
-        {
-            steps{
-                sh """
-                kubectl set image deployment/backend \
-                backend=$IMAGE_NAME:$IMAGE_TAG \
-                -n todo
-                """
-            }
-        }
+         stage('Update Deployment YAML') {
+      steps {
+        sh """
+          sed -i 's|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|g' Kubernetes-Manifests-file/backend/deployment.yaml
+        """
+      }
+    }
+
+    stage('Commit & Push to Git') {
+      steps {
+        sh """
+          git config user.name "Rakshith"
+          git config user.email "poojaryrakshith986@gmail.com"
+
+          git add Kubernetes-Manifests-file/backend/deployment.yaml
+          git commit -m "Update backend image to $IMAGE_TAG"
+          git push origin main
+        """
+      }
+    }
+
 
     }
 }
