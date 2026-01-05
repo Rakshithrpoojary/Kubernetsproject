@@ -5,7 +5,7 @@ metadata:
   namespace: todo
 spec:
   ports:
-    - port: 3500
+    - port: 80
       targetPort: 3500
       protocol: TCP
   type: LoadBalancer
