@@ -6,6 +6,8 @@ pipeline{
 
     environment{
         SCANNER_HOME=tool 'sonar-scanner'
+        IMAGE_NAME = "rakshithrpoojary/backend"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
     stages{
         // stage('Cleaning workspace')
@@ -67,6 +69,16 @@ withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v
 sh 'docker tag frontend rakshithrpoojary/frontend:${BUILD_NUMBER}'
 sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
 }
+            }
+        }
+        stage('Deploy to k8s')
+        {
+            steps{
+                sh """
+                kubectl set image deployment/frontend \
+                frontend=$IMAGE_NAME:$IMAGE_TAG \
+                -n todo
+                """
             }
         }
     }

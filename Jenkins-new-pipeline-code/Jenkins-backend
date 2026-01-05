@@ -5,6 +5,8 @@ pipeline{
     }
     environment{
         SCANNER_HOME =tool 'sonar-scanner'
+         IMAGE_NAME = "rakshithrpoojary/backend"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
     stages{
         stage("Git checkout")
@@ -60,6 +62,16 @@ steps{
 sh 'docker tag backend rakshithrpoojary/backend:${BUILD_NUMBER}'
 sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
                 }
+            }
+        }
+            stage('Deploy to k8s')
+        {
+            steps{
+                sh """
+                kubectl set image deployment/backend \
+                backend=$IMAGE_NAME:$IMAGE_TAG \
+                -n todo
+                """
             }
         }
 
