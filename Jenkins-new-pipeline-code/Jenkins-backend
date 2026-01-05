@@ -67,7 +67,7 @@ sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
          stage('Update Deployment YAML') {
       steps {
         sh """
-          sed -i 's|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|g' Kubernetes-Manifests-file/backend/deployment.yaml
+          sed -i 's|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|g' Kubernetes-Manifests-file/Backend/deployment.yaml
         """
       }
     }
