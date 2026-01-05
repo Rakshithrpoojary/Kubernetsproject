@@ -11,41 +11,41 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: rakshithdevops.study
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: api
-                port:
-                  number: 80
-          - path: /healthz
-            pathType: Exact
-            backend:
-              service:
-                name: api
-                port:
-                  number: 80
-          - path: /ready
-            pathType: Exact
-            backend:
-              service:
-                name: api
-                port:
-                  number: 80
-          - path: /started
-            pathType: Exact
-            backend:
-              service:
-                name: api
-                port:
-                  number: 80
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
+    # - host: rakshithdevops.study
+    http:
+      paths:
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: api
+              port:
+                number: 80
+        - path: /healthz
+          pathType: Exact
+          backend:
+            service:
+              name: api
+              port:
+                number: 80
+        - path: /ready
+          pathType: Exact
+          backend:
+            service:
+              name: api
+              port:
+                number: 80
+        - path: /started
+          pathType: Exact
+          backend:
+            service:
+              name: api
+              port:
+                number: 80
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend
+              port:
+                number: 80
