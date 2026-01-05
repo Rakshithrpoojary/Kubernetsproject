@@ -57,7 +57,7 @@ steps{
             steps{
                 withDockerRegistry(credentialsId:"docker-cred", url: 'https://index.docker.io/v1/')
                 {
-sh 'docker tag frontend rakshithrpoojary/backend:${BUILD_NUMBER}'
+sh 'docker tag backend rakshithrpoojary/backend:${BUILD_NUMBER}'
 sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
                 }
             }

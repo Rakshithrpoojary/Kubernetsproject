@@ -23,10 +23,10 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: rakshithrpoojary/frontend:10
+          image: rakshithrpoojary/frontend:15
           imagePullPolicy: Always
           env:
             - name: REACT_APP_BACKEND_URL
-              value: "http://aac61c2abad8a4161b83001e20074d5d-1658894643.ap-south-1.elb.amazonaws.com:3500/api/tasks"
+              value: "http://a7b63c3874c924189bf1d215e44e66fe-2041098365.ap-south-1.elb.amazonaws.com:3500/api/tasks"
           ports:
             - containerPort: 3000
