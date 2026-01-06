@@ -81,6 +81,7 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
 
     stage('Commit & Push to Git') {
       steps {
+        withCredentials([gitUsernamePassword(credentialsId: 'git-cred', gitToolName: 'Default')]) {
         sh """
           git config user.name "Rakshith"
           git config user.email "poojaryrakshith986@gmail.com"
@@ -90,6 +91,7 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
           git push https://github.com/Rakshithrpoojary/Kubernetsproject.git HEAD:main
         """
       }
+        
     }
 
     }
