@@ -87,7 +87,7 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
           git config user.email "poojaryrakshith986@gmail.com"
           git add Kubernetes-Manifests-file/Frontend/deployment.yaml
           git commit -m "Update frontend image to $IMAGE_TAG"
-          git push --set-upstream origin main
+          git push
         """
       }
       }
