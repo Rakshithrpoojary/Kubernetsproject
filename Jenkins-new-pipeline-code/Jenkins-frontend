@@ -81,14 +81,14 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
 
     stage('Commit & Push to Git') {
       steps {
-        withCredentials([gitUsernamePassword(credentialsId: 'git-cred', gitToolName: 'Default')]) {
+        withCredentials([gitUsernamePassword(credentialsId: 'git-cred', variable: 'GITHUB_TOKEN')]) {
         sh """
           git config user.name "Rakshith"
           git config user.email "poojaryrakshith986@gmail.com"
 
           git add Kubernetes-Manifests-file/Frontend/deployment.yaml
           git commit -m "Update frontend image to $IMAGE_TAG"
-          git push --set-upstream origin main
+          git push https://${GITHUB_TOKEN}@github.com/Rakshithrpoojary/Kubernetsproject HEAD:main
         """
       }
       }
