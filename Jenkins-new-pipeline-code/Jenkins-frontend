@@ -91,7 +91,7 @@ sh 'docker push rakshithrpoojary/frontend:${BUILD_NUMBER}'
           git push https://github.com/Rakshithrpoojary/Kubernetsproject.git HEAD:main
         """
       }
-        
+      }
     }
 
     }
