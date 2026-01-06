@@ -12,7 +12,7 @@ pipeline{
         stage("Git checkout")
         {
             steps{
-                git credentialsId : 'git-cred', url :"https://github.com/Rakshithrpoojary/Kubernetsproject.git"
+                git credentialsId : 'git-cred', url :"https://github.com/Rakshithrpoojary/Kubernetsproject.git", branch :"main"
             }
         }
         stage("Sonarqube scann")
@@ -59,8 +59,8 @@ steps{
             steps{
                 withDockerRegistry(credentialsId:"docker-cred", url: 'https://index.docker.io/v1/')
                 {
-sh 'docker tag backend rakshithrpoojary/backend:${BUILD_NUMBER}'
-sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
+                    sh 'docker tag backend rakshithrpoojary/backend:${BUILD_NUMBER}'
+                    sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
                 }
             }
         }
@@ -78,10 +78,9 @@ sh 'docker push rakshithrpoojary/backend:${BUILD_NUMBER}'
         sh """
           git config user.name "Rakshith"
           git config user.email "poojaryrakshith986@gmail.com"
-
           git add Kubernetes-Manifests-file/Backend/deployment.yaml
           git commit -m "Update backend image to $IMAGE_TAG"
-          git push origin main
+          git push origin HEAD
         """
       }
       }
